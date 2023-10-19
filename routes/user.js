@@ -1,12 +1,30 @@
 const express = require('express');
 const router = express.Router();
+const passport = require('passport');
 const userController = require('../controllers/user_controller');
 
-
+router.get('/profile',passport.checkAuthentication,userController.profile);
 router.get('/log-in',userController.logIn);
-router.get('/register',userController.register);
+
 
 router.post('/create',userController.create);
-router.post('/create-session',userController.createSession);
+
+//use passport as middleware to authenticate
+router.post('/create-session',passport.authenticate(
+    'local',
+    {failureRedirect:'/users/log-in'}
+    ),userController.createSession);
+
+router.get('/log-out',userController.destroySession);
+
+router.get('/auth/google',passport.authenticate(
+'google',
+{ scope:['profile','email']}
+    ));
+
+router.get('/auth/google/callback',passport.authenticate(
+'google',
+{failureRedirect:'users/log-in'}
+),userController.createSession)
 
 module.exports = router;

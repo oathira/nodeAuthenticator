@@ -1,9 +1,21 @@
 <link rel="stylesheet" href="/css/user_sign_in.css">
 <h1>Log In</h1>
 
-<form action="/users/create-session" method="POST">
+<form action="/users/create-session" method="POST" class="form">
     <input type="email" name="email" placeholder="Email"  required>
     <input type="password" name="password" placeholder="Password"  required>
     <input type="submit" value="LogIn">
 
 </form>
+
+<p>or</p>
+<p>
+    <a href="/users/auth/google">Google LogIn/Register</a>
+   
+</p>
+
+<ul>
+    <li>Don't have an account?<a href="/">Register</a></li>
+    <li>Forgot password<a href="">Click here</a></li>
+    
+</ul>

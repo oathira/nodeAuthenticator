@@ -1,22 +1,25 @@
 const User = require('../models/user');
 
-
+module.exports.profile = function(req,res){
+  return res.render('user_profile', {
+      title: "user_profile"
+  })
+}
 
 module.exports.logIn = function(req,res){
+  if (req.isAuthenticated()){
+    return res.redirect('/users/profile');
+}
     return res.render('user_sign_in', {
         title: "LogIn"
     })
 } 
 
-module.exports.register = function(req,res){
-    return res.render('user_sign_up',{
-        title:'Register'
-    })
-} 
+
 
 module.exports.create = async function (req, res) {
     if (req.body.password != req.body.confirm_password) {
-      console.log("passwords are not equal");
+      req.flash('error', 'Passwords are not equal!');
       return res.redirect('back');
     }
   
@@ -26,7 +29,7 @@ module.exports.create = async function (req, res) {
         await User.create(req.body);
         return res.redirect('/users/log-in');
       } else {
-        console.log("this email already exist");
+        req.flash('error',"This email already exist");
         return res.redirect('back');
       }
     } catch (err) {
@@ -37,6 +40,19 @@ module.exports.create = async function (req, res) {
 
 // sign in and create a session for the user
 module.exports.createSession = function(req,res){
+  req.flash('success','Logged In successfully!');
+  return res.redirect('/users/profile');
     
 }
+
+module.exports.destroySession = function(req, res) {
+  req.logout(function(err) {
+    if (err) {
+      console.error('Error while logging out:', err);
+    }
+    req.flash('success', 'You have logged out!');
+    return res.redirect('/users/log-in');
+  });
+}
+
 
