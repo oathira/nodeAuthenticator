@@ -2,21 +2,34 @@ body{
     margin: 0;
     padding: 0;
     text-align: center;
+  
    
 }
+.reset{
+    margin-top: 40px;
+}
+#sign-in{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+#form-bottom{
+    margin-top: 40px;
+}
+
+input::placeholder {
+    font-weight:150px;
+    color: gray;
+    font-size:17px;
+    font-style: normal;
+    opacity: 0.2;
+ 
+  }
+  .divider:after,
+.divider:before {
+content: "";
+flex: 1;
+height: 1px;
+background: #eee;
+}
 
 
-
-.form{
-    display:flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-input{
-    margin:10px;
-    padding: 3px;
-}
-ul{
-    list-style-type: none;
-}

@@ -15,6 +15,9 @@ router.post('/create-session',passport.authenticate(
     {failureRedirect:'/users/log-in'}
     ),userController.createSession);
 
+router.get('/reset',passport.checkAuthentication,userController.reset);
+// router.post('/reset',userController.resetPassword);
+
 router.get('/log-out',userController.destroySession);
 
 router.get('/auth/google',passport.authenticate(
@@ -25,6 +28,8 @@ router.get('/auth/google',passport.authenticate(
 router.get('/auth/google/callback',passport.authenticate(
 'google',
 {failureRedirect:'users/log-in'}
-),userController.createSession)
+),userController.createSession);
+
+
 
 module.exports = router;
