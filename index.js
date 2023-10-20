@@ -15,7 +15,9 @@ const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const customMiddleware = require('./config/middleware');
 
-app.use(express.urlencoded());
+app.use(express.json())
+app.use(express.urlencoded({extended:false}));
+const JWT_SECERT = "something"
 
 app.use(cookieParser());
 

@@ -3,41 +3,6 @@ const User = require('../models/user');
 const bcrypt = require('bcrypt');
 
 
-// // Handle the password reset logic
-// exports.resetPassword = async (req, res) => {
-//     const { email, oldpassword, newpassword } = req.body;
-
-//     try {
-//         const user = await User.findOne({ email:email });
-
-//         if (!user) {
-//             req.flash('error', 'User does not exist');
-//             return res.redirect('/users/reset');
-//         }
-
-//         const passwordMatch = await bcrypt.compare(oldpassword, user.password);
-
-//         if (!passwordMatch) {
-//             req.flash('error', 'Current password does not match');
-//             return res.redirect('/users/reset');
-//         }
-
-//         const saltRounds = 10;
-//         const hashedPassword = await bcrypt.hash(newpassword, saltRounds);
-
-//         user.password = hashedPassword;
-//         await user.save();
-
-//         req.flash('success', 'Password updated successfully');
-//         return res.redirect('/users/log-in');
-//     } catch (error) {
-//         console.error(error);
-//         req.flash('error', 'An error occurred while resetting the password');
-//         return res.redirect('/users/reset');
-//     }
-// };
-
-
 module.exports.profile = function(req,res){
   return res.render('user_profile', {
       title: "user_profile"
@@ -75,6 +40,32 @@ module.exports.create = async function (req, res) {
       return res.redirect('back');
     }
   };
+  module.exports.forget= function(req,res){
+ 
+    return res.render('forgot_password', {
+        title: " Forgot_password",
+    }
+    )
+  } 
+  module.exports.forgotPassword = async function(req,res){
+     
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        req.flash('error',"User not registered");
+        return res.redirect('/users/log-in');
+      } 
+      //create onetimelink that is valid for 15 minutes
+      // else {
+      //   req.flash('error',"This email already exist");
+      //   return res.redirect('back');
+      // }
+    } catch (err) {
+      console.log('Error :', err);
+      return res.redirect('/users/log-in');
+    }
+  }
+  
 
 // sign in and create a session for the user
 module.exports.createSession = function(req,res){
@@ -89,8 +80,10 @@ module.exports.reset = function(req,res){
     })
 }
 
-
-
+ module.exports.resetPassword = function(req,res){
+    
+  }
+  
 
 
 module.exports.destroySession = function(req, res) {

@@ -15,8 +15,12 @@ router.post('/create-session',passport.authenticate(
     {failureRedirect:'/users/log-in'}
     ),userController.createSession);
 
-router.get('/reset',passport.checkAuthentication,userController.reset);
-// router.post('/reset',userController.resetPassword);
+
+router.get('/forgot-password',userController.forget);
+router.post('/forgot-password',userController.forgotPassword);
+router.get('/reset',userController.reset);
+router.post('/reset',userController.resetPassword);
+
 
 router.get('/log-out',userController.destroySession);
 
