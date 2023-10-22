@@ -1,11 +1,10 @@
  Folder Structure
+ - assets/
+- config/
  - controllers/
 - models/
 - routes/
 - views/
-- assets/
-- config/
-- utils/
 - index.js
 - package.json
 Database Setup
