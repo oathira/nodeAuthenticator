@@ -1,5 +1,6 @@
 const express = require('express');
 const app = express();
+const hostname = '0.0.0.0'
 const port = 3000;
 const cookieParser = require('cookie-parser');
 const expressLayouts = require('express-ejs-layouts');
@@ -9,15 +10,15 @@ const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
 const passportGoogle = require('./config/passport_google_oauth2_startegy');
-const jwt = require('jsonwebtoken');
+
 
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const customMiddleware = require('./config/middleware');
 
-app.use(express.json())
+
 app.use(express.urlencoded({extended:false}));
-const JWT_SECERT = "something"
+
 
 app.use(cookieParser());
 
@@ -64,4 +65,4 @@ app.use('/', require('./routes'));
 app.listen(port,function(err){
     if(err){console.log(`error in running the server:${err}`);}
     console.log(`Server is running on port:${port}`);
-})
+})   
